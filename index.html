@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אמנות הפרומפט המחקרי בפסיכולוגיה: עקרונות ליבה</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* --- General Styles (Same as before) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        :root {
+            --primary-color: #4facfe; /* Blue */
+            --secondary-color: #28e0b9; /* Teal/Turquoise */
+            --background-dark: #1a1a2e;
+            --background-medium: #16213e;
+            --text-light: #f0f0f0;
+            --text-medium: #a0a0c0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --example-bg: rgba(79, 172, 254, 0.1);
+            --example-border: var(--primary-color);
+            --mistakes-bg: rgba(254, 79, 79, 0.1);
+            --mistakes-border: #fe4f4f;
+             --howto-bg: rgba(40, 224, 185, 0.1); /* Teal background for how-to */
+            --howto-border: var(--secondary-color); /* Teal border for how-to */
+            --success-color: #4ffeaf;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--background-dark), var(--background-medium), var(--background-dark));
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* --- Header Styles (Same as before) --- */
+        .header {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 4rem;
+             padding-bottom: 4rem;
+        }
+
+        .header-content {
+            max-width: 800px;
+            padding: 3rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+        }
+
+        h1.main-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+         h2.sub-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .intro-paragraph {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+        }
+         .intro-paragraph-small {
+             font-size: 0.9rem;
+             line-height: 1.5;
+             color: var(--text-medium);
+             opacity: 0.8;
+         }
+
+        /* --- Card Styles (Same as before) --- */
+        .section-title {
+             font-size: 2.8rem;
+             margin-top: 4rem;
+             margin-bottom: 2rem;
+             text-align: center;
+             color: var(--primary-color);
+             font-weight: 700;
+             border-bottom: 2px solid var(--secondary-color);
+             padding-bottom: 0.5rem;
+             display: inline-block;
+        }
+         .center-title {
+             display: flex;
+             justify-content: center;
+             margin-bottom: 3rem;
+         }
+
+        .principle-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid var(--card-border);
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .principle-card.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        .principle-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-left: 1.5rem;
+            min-width: 60px;
+            line-height: 1;
+        }
+
+        .principle-title {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .principle-title i {
+            margin-left: 0.7rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .principle-explanation {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Box Styles (Same as before) --- */
+        .example-box, .mistakes-box, .howto-box {
+            background: var(--example-bg);
+            border-right: 4px solid var(--example-border);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .mistakes-box {
+            background: var(--mistakes-bg);
+            border-right-color: var(--mistakes-border);
+        }
+         .howto-box {
+             background: var(--howto-bg);
+             border-right-color: var(--howto-border);
+         }
+
+        .box-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+        }
+
+        .box-title i {
+            margin-left: 0.5rem;
+             font-size: 1.1em;
+        }
+        .example-box .box-title i { color: var(--example-border); }
+        .mistakes-box .box-title i { color: var(--mistakes-border); }
+        .howto-box .box-title i { color: var(--howto-border); }
+
+        .example-content, .mistakes-content ul, .howto-content p {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-top: 1rem;
+            color: var(--text-light);
+            font-size: 1rem;
+             line-height: 1.6;
+        }
+        .mistakes-content ul {
+            list-style: none;
+             padding-right: 1rem;
+        }
+         .mistakes-content li::before {
+             content: "✕";
+             color: var(--mistakes-border);
+             display: inline-block;
+             width: 1em;
+             margin-left: -1em;
+              margin-right: 0.5em;
+             font-weight: bold;
+         }
+
+        /* --- Copy Button Styles (Same as before) --- */
+        .copy-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .copy-button i {
+            margin-left: 0.5rem;
+        }
+
+        .copy-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .copy-button.copied {
+            background: var(--success-color);
+             color: #333;
+        }
+
+        /* --- Responsive Styles (Same as before) --- */
+        @media (max-width: 768px) {
+            h1.main-title {
+                font-size: 2.8rem;
+            }
+             h2.sub-title {
+                 font-size: 1.5rem;
+             }
+            .principle-card {
+                padding: 1.5rem;
+            }
+             .principle-title {
+                 font-size: 1.5rem;
+             }
+             .box-title {
+                 font-size: 1.1rem;
+             }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="main-title">אמנות הפרומפט המחקרי בפסיכולוגיה</h1>
+            <h2 class="sub-title">מדריך מעשי לשימוש ב-AI ככלי ביצועי במחקר</h2>
+            <p class="intro-paragraph">
+                ברוכים הבאים למדריך ליצירת פרומפטים אפקטיביים לשימוש בבינה מלאכותית במחקר הפסיכולוגי. כאן תלמדו עקרונות מנחים ודוגמאות קונקרטיות להפעלת AI ככלי עזר עוצמתי בשלבים שונים של עבודתכם המחקרית - מתכנון ועד פרסום.
+            </p>
+            <p class="intro-paragraph-small">
+                המדריך מיועד לחוקרים, סטודנטים ועוזרי מחקר בפסיכולוגיה המעוניינים למצות את הפוטנציאל של AI להאצת ושיפור המחקר.
+            </p>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="center-title">
+            <h2 class="section-title">עקרונות ליבה לפרומפטים מחקריים</h2>
+         </div>
+
+        <div class="principle-card">
+            <div class="card-header">
+                <div class="principle-number">01</div>
+                <h3 class="principle-title">
+                    <i class="fas fa-user-tie"></i>
+                    הגדרת תפקיד וסגנון ה-AI
+                </h3>
+            </div>
+            <p class="principle-explanation">
+                הנחו את ה-AI לאמץ 'פרסונה' מקצועית רלוונטית למשימה (סטטיסטיקאי, מומחה לסקירת ספרות, עורך לשוני) והגדירו את סגנון הכתיבה או התגובה הרצוי. ניתן להנחות את הסגנון גם באמצעות מתן דוגמאות טקסט רלוונטיות (למשל, מאמרים בסגנון דומה, קטעים שכתבתם אתם או המנחה שלכם).
+            </p>
+            
+            <div class="example-box">
+                <div class="box-title">
+                    <i class="fas fa-lightbulb"></i>
+                    פרומפט לדוגמה
+                </div>
+                <div class="example-content">
+                    "פעל כפרופסור לפסיכולוגיה חברתית, המתמחה בכתיבה אקדמית בהירה ומשכנעת, בדומה לסגנונו של פרופ' [שם הפרופסור, אם רלוונטי] כפי שבא לידי ביטוי במאמר המצורף [יש לצרף קובץ דוגמה בממשק ה-AI אם אפשרי, או לתאר את הסגנון: 'השתמש בשפה מדויקת, הימנע מז'רגון מיותר, ובנה טיעונים לוגיים ברורים עם דוגמאות קונקרטיות'].
+                    המשימה: קרא את טיוטת המבוא שכתבתי (מצורפת) והצע דרכים לשפר את זרימת הטיעון המרכזי ואת השכנוע שלו, תוך שמירה על הסגנון שהוגדר."
+                </div>
+                <button class="copy-button" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                    העתק דוגמה
+                </button>
+            </div>
+
+            <div class="mistakes-box">
+                <div class="box-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    טעויות נפוצות
+                </div>
+                <ul class="mistakes-content">
+                    <li>בקשה לחקות סגנון ללא דוגמה קונקרטית או תיאור מספק.</li>
+                    <li>הגדרת תפקיד כללית מדי ("תהיה פרופסור") שאינה ממוקדת במשימה או בתחום.</li>
+                    <li>חוסר התאמה בין התפקיד הנדרש לסוג המשימה (למשל, לבקש מ"פרופסור לפסיכולוגיה חברתית" לכתוב קוד סטטיסטי מורכב).</li>
+                </ul>
+            </div>
+             <div class="howto-box">
+                <div class="box-title">
+                    <i class="fas fa-question-circle"></i>
+                    איך ליישם?
+                </div>
+                <div class="howto-content">
+                    <p>חשבו מי המומחה שהייתם רוצים שיבצע את המשימה? (פרופסור בתחום X? מומחה לשיטה Y? עורך?). נסחו את תפקיד ה-AI בהתאם. אם הסגנון חשוב, מצאו דוגמה טובה (מאמר, פרק, מייל) ותארו את מאפייני הסגנון או צרפו את הדוגמה אם אפשר.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="principle-card">
+            <div class="card-header">
+                <div class="principle-number">02</div>
+                <h3 class="principle-title">
+                    <i class="fas fa-tasks"></i>
+                    הגדרת המשימה והתוצר הרצוי
+                </h3>
+            </div>
+            <p class="principle-explanation">
+                חשוב להגדיר באופן חד וברור מהי המשימה המדויקת שה-AI צריך לבצע, ומהו התוצר הסופי (Deliverable) שאתם מצפים לקבל. פרטו את מבנה התוצר, הפורמט, רמת הפירוט והתוכן הספציפי שצריך להיכלל בו.
+            </p>
+            
+            <div class="example-box">
+                <div class="box-title">
+                    <i class="fas fa-lightbulb"></i>
+                    פרומפט לדוגמה
+                </div>
+                <div class="example-content">
+                    "המשימה: לכתוב קוד Python לניתוח רגרסיה לוגיסטית.
+                    קלט: תיאור מערך נתונים - משתנה תלוי בינארי ('Success': 0 או 1), 5 מנבאים (Age: רציף, Gender: קטגוריאלי 'Male'/'Female', Condition: קטגוריאלי 'A'/'B'/'C', Score1: רציף, Score2: רציף).
+                    התוצר הרצוי: סקריפט Python מלא (עבור ספריית `statsmodels`) הכולל:
+                    1. פונקציה לדוגמה ליצירת DataFrame ב-Pandas עם מבנה דומה (לצורך בדיקה).
+                    2. קוד לקידוד משתנים קטגוריאליים (למשל, One-Hot Encoding).
+                    3. קוד להרצת מודל הרגרסיה הלוגיסטית (`sm.Logit`).
+                    4. קוד להדפסת סיכום המודל המלא (`results.summary()`).
+                    5. קוד לחישוב והדפסת יחסי סיכויים (Odds Ratios) עם רווחי סמך (95%).
+                    6. הוספת הערות מפורטות (#) המסבירות כל שלב בקוד."
+                </div>
+                <button class="copy-button" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                    העתק דוגמה
+                </button>
+            </div>
+
+            <div class="mistakes-box">
+                <div class="box-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    טעויות נפוצות
+                </div>
+                <ul class="mistakes-content">
+                    <li>הגדרת משימה עמומה ("נתח את הקשר בין המשתנים").</li>
+                    <li>אי-פירוט הפורמט הרצוי (טקסט? קוד? טבלה? רשימה?).</li>
+                     <li>חוסר הגדרה של רמת הפירוט הנדרשת (סיכום קצר? ניתוח מעמיק? קוד עם הסברים?).</li>
+                    <li>הנחה שה-AI "יודע" איזה ניתוח סטטיסטי לבצע או באיזו ספרייה להשתמש.</li>
+                </ul>
+            </div>
+              <div class="howto-box">
+                <div class="box-title">
+                    <i class="fas fa-question-circle"></i>
+                    איך ליישם?
+                </div>
+                <div class="howto-content">
+                    <p>פרקו את המשימה לשלבים לוגיים. עבור כל שלב, הגדירו מה ה-AI צריך לעשות. חשבו איך הייתם רוצים שהתוצאה הסופית תיראה ותנו הנחיות בהתאם למבנה ולתוכן (למשל, "סדר את התוצאות בטבלה עם העמודות הבאות:", "כלול בקוד פלט שמציג את ערך ה-p", "השתמש בספריית X לכתיבת הקוד").</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="principle-card">
+            <div class="card-header">
+                <div class="principle-number">03</div>
+                <h3 class="principle-title">
+                    <i class="fas fa-sitemap"></i>
+                    מתן הקשר מחקרי מפורט
+                </h3>
+            </div>
+            <p class="principle-explanation">
+                ספקו ל-AI את ההקשר המחקרי המלא והרלוונטי לבקשתכם. ככל שההקשר יהיה עשיר ומפורט יותר, כך התוצר יהיה מדויק ושימושי יותר. כללו רקע תיאורטי, מטרות המחקר, שאלות/השערות מרכזיות, תיאור האוכלוסייה והמדגם, והשיטה שבה השתמשתם.
+            </p>
+            <div class="example-box">
+                <div class="box-title">
+                    <i class="fas fa-lightbulb"></i>
+                    פרומפט לדוגמה
+                </div>
+                <div class="example-content">
+                    "אני עורך מחקר הבוחן את יעילותה של התערבות קבוצתית חדשה להפחתת חרדה חברתית בקרב מתבגרים (גילאי 14-17). המחקר השתמש במערך קוואזי-ניסויי עם קבוצת התערבות (N=30) וקבוצת ביקורת (רשימת המתנה, N=28). נמדדו רמות חרדה חברתית (באמצעות שאלון SPIN) לפני ההתערבות (T1), מיד אחריה (T2), ובמעקב כעבור 3 חודשים (T3).
+                    המשימה: בהתבסס על ההקשר הזה, הצע ניתוח סטטיסטי מתאים (רצוי ב-R) לבדיקת ההשערה שההתערבות הפחיתה חרדה חברתית לאורך זמן, יותר מאשר בקבוצת הביקורת. אנא התייחס למדידות חוזרות ולאפשרות של נשירה."
+                </div>
+                <button class="copy-button" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                    העתק דוגמה
+                </button>
+            </div>
+            <div class="mistakes-box">
+                <div class="box-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    טעויות נפוצות
+                </div>
+                <ul class="mistakes-content">
+                    <li>בקשת ניתוח או כתיבה ללא מתן הקשר מחקרי כלל.</li>
+                    <li>מתן הקשר חלקי או לא מספק (למשל, רק שאלת המחקר ללא תיאור השיטה).</li>
+                    <li>אי-ציון מטרת התוצר (למשל, האם הקוד מיועד לניתוח ראשוני או למאמר סופי?).</li>
+                </ul>
+            </div>
+            <div class="howto-box">
+                <div class="box-title">
+                    <i class="fas fa-question-circle"></i>
+                    איך ליישם?
+                </div>
+                <div class="howto-content">
+                    <p>לפני שתבקשו משימה מה-AI, כתבו לעצמכם (או העתיקו מהצעת המחקר) תקציר קצר של הרקע, המטרות, השיטה וההשערות המרכזיות. ספקו את התקציר הזה ל-AI כחלק מהפרומפט, במיוחד במשימות מורכבות כמו ניתוח נתונים או כתיבת חלקים מהמאמר.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="principle-card">
+             <div class="card-header">
+                 <div class="principle-number">04</div>
+                 <h3 class="principle-title">
+                     <i class="fas fa-book-open"></i>
+                     שימוש בחומרי עזר רלוונטיים למחקר
+                 </h3>
+             </div>
+             <p class="principle-explanation">
+                 נצלו את היכולת של מודלי AI רבים לעבד מידע מקבצים מצורפים. העלו מאמרים רלוונטיים, תקצירים, הנחיות לכתיבה, תיאורי נתונים, קטעי קוד קודמים, או כל חומר אחר שיכול לסייע ל-AI להבין טוב יותר את המשימה ולספק תוצר מדויק יותר.
+             </p>
+             <div class="example-box">
+                 <div class="box-title">
+                     <i class="fas fa-lightbulb"></i>
+                     פרומפט לדוגמה
+                 </div>
+                 <div class="example-content">
+                     "צרפתי קובץ PDF של מאמר מחקר מרכזי בתחום [ציין תחום].
+                     פעל כמומחה לסקירת ספרות. המשימה היא:
+                     1. לסכם את המתודולוגיה של המחקר בפסקאות קצרות.
+                     2. לפרט את הממצאים העיקריים של המחקר בנקודות.
+                     3. לזהות את המגבלות העיקריות שהחוקרים ציינו.
+                     4. להציע 2-3 כיווני מחקר עתידיים המתבססים על מאמר זה.
+                     התשובה צריכה להיות מנוסחת בבהירות ובצורה אקדמית."
+                 </div>
+                 <button class="copy-button" onclick="copyToClipboard(this)">
+                     <i class="fas fa-copy"></i>
+                     העתק דוגמה
+                 </button>
+             </div>
+             <div class="mistakes-box">
+                 <div class="box-title">
+                     <i class="fas fa-exclamation-triangle"></i>
+                     טעויות נפוצות
+                 </div>
+                 <ul class="mistakes-content">
+                     <li>ציפייה שה-AI "יכיר" מאמר ספציפי או חומר מסוים מבלי לספק לו גישה אליו.</li>
+                     <li>העלאת קבצים ללא הנחיה ברורה מה לעשות איתם.</li>
+                     <li>חוסר הפניה ספציפית לחלקים רלוונטיים בחומר המצורף (אם נדרש).</li>
+                     <li>העלאת חומרים לא רלוונטיים או מיושנים.</li>
+                 </ul>
+             </div>
+             <div class="howto-box">
+                 <div class="box-title">
+                     <i class="fas fa-question-circle"></i>
+                     איך ליישם?
+                 </div>
+                 <div class="howto-content">
+                     <p>אספו את חומרי העזר הרלוונטיים ביותר למשימה (מאמרים מרכזיים, הנחיות ספציפיות, תיאור נתונים). השתמשו ביכולת העלאת הקבצים של ה-AI (אם קיימת). בפרומפט, הפנו במפורש לחומרים שסיפקתם והסבירו כיצד להשתמש בהם ("בהתבסס על המאמר המצורף...", "ערוך את הטקסט הבא לפי ההנחיות בקובץ...").</p>
+                 </div>
+             </div>
+        </div>
+
+        <div class="principle-card">
+             <div class="card-header">
+                 <div class="principle-number">05</div>
+                 <h3 class="principle-title">
+                     <i class="fas fa-sync-alt"></i>
+                     שיפור איטרטיבי ודיוק
+                 </h3>
+             </div>
+             <p class="principle-explanation">
+                 התהליך המחקרי, וגם העבודה עם AI, הם לרוב איטרטיביים. אל תצפו לקבל את התוצר המושלם בניסיון הראשון. השתמשו בתגובות הראשוניות של ה-AI כבסיס, ובקשו שיפורים, תיקונים, הבהרות או הרחבות באופן הדרגתי וממוקד עד שתגיעו לתוצאה הרצויה.
+             </p>
+             <div class="example-box">
+                 <div class="box-title">
+                     <i class="fas fa-lightbulb"></i>
+                     פרומפט לדוגמה (תהליך איטרטיבי)
+                 </div>
+                 <div class="example-content">
+                     "**פרומפט 1:** כתוב קוד R ליצירת גרף פיזור (scatterplot) המציג את הקשר בין משתנה X למשתנה Y מהנתונים שסיפקתי.
+                     **פרומפט 2 (לאחר קבלת הגרף הבסיסי):** תודה. כעת, הוסף קו רגרסיה לינארית לגרף עם מרווח סמך (confidence interval) של 95%. שנה את צבע הנקודות לכחול ואת קו הרגרסיה לאדום.
+                     **פרומפט 3 (לאחר קבלת הגרף המשופר):** מצוין. אנא הוסף כותרת ראשית לגרף: 'הקשר בין X ל-Y', ותוויות (labels) ברורות לציר ה-X ('ציון במשתנה X') ולציר ה-Y ('ציון במשתנה Y'). הגדל מעט את גודל הפונט של התוויות."
+                 </div>
+                 <button class="copy-button" onclick="copyToClipboard(this)">
+                     <i class="fas fa-copy"></i>
+                     העתק דוגמה
+                 </button>
+             </div>
+             <div class="mistakes-box">
+                 <div class="box-title">
+                     <i class="fas fa-exclamation-triangle"></i>
+                     טעויות נפוצות
+                 </div>
+                 <ul class="mistakes-content">
+                     <li>קבלה של התוצאה הראשונית כסופית, גם אם אינה מדויקת או מלאה.</li>
+                     <li>בקשת שינויים רבים ומורכבים מדי בפרומפט אחד, במקום לבצע שיפורים הדרגתיים.</li>
+                     <li>חוסר למידה מהתגובות הקודמות של ה-AI (למשל, לבקש שוב משהו שה-AI כבר ציין שאינו יכול לעשות).</li>
+                     <li>אי-שמירה על הרצף הלוגי של השיחה (כל פרומפט חדש צריך להתייחס לתגובה הקודמת).</li>
+                 </ul>
+             </div>
+             <div class="howto-box">
+                 <div class="box-title">
+                     <i class="fas fa-question-circle"></i>
+                     איך ליישם?
+                 </div>
+                 <div class="howto-content">
+                     <p>התחילו עם בקשה בסיסית יחסית. בחנו את התוצר שקיבלתם. זהו את הנקודות הדורשות שיפור או שינוי. כתבו פרומפט המשך המתייחס ספציפית לתגובה הקודמת ומבקש את השינוי המדויק (למשל, "בתגובתך הקודמת כתבת ש..., אנא שנה את הניסוח ל...", "בקוד שסיפקת, אנא הוסף את הפונקציונליות הבאה..."). חזרו על התהליך לפי הצורך.</p>
+                 </div>
+             </div>
+         </div>
+
+        <div class="principle-card">
+             <div class="card-header">
+                 <div class="principle-number">06</div>
+                 <h3 class="principle-title">
+                     <i class="fas fa-random"></i>
+                     בקשת חלופות וגישות שונות
+                 </h3>
+             </div>
+             <p class="principle-explanation">
+                 נצלו את יכולת ה-AI לחשוב על אפשרויות שונות. בקשו ממנו להציע מספר גישות או פתרונות לאותה בעיה מחקרית, ניתוח סטטיסטי, ניסוח טקסט, או ויזואליזציה. זה יכול לעזור לכם לבחון זוויות שונות, להשוות בין חלופות ולקבל החלטה מושכלת יותר.
+             </p>
+             <div class="example-box">
+                 <div class="box-title">
+                     <i class="fas fa-lightbulb"></i>
+                     פרומפט לדוגמה
+                 </div>
+                 <div class="example-content">
+                     "בהתבסס על שאלת המחקר והנתונים שתיארתי (בדיקת השפעת טיפול על דיכאון לאורך זמן עם קבוצת ביקורת), הצע 3 מודלים סטטיסטיים שונים שניתן להריץ ב-R כדי לנתח את הנתונים. עבור כל מודל, ציין בקצרה את יתרונותיו, חסרונותיו, וההנחות המרכזיות שלו בהקשר של הנתונים שלי (למשל, Repeated Measures ANOVA, Linear Mixed Model, Growth Curve Model)."
+                 </div>
+                 <button class="copy-button" onclick="copyToClipboard(this)">
+                     <i class="fas fa-copy"></i>
+                     העתק דוגמה
+                 </button>
+             </div>
+             <div class="mistakes-box">
+                 <div class="box-title">
+                     <i class="fas fa-exclamation-triangle"></i>
+                     טעויות נפוצות
+                 </div>
+                 <ul class="mistakes-content">
+                     <li>חוסר הגדרה של מספר החלופות הרצוי ("הצע גישות").</li>
+                     <li>אי-בקשת קריטריונים להשוואה בין החלופות (יתרונות/חסרונות, התאמה לנתונים).</li>
+                     <li>בקשת חלופות ללא מתן הקשר מספק שיאפשר ל-AI להציע חלופות רלוונטיות.</li>
+                 </ul>
+             </div>
+             <div class="howto-box">
+                 <div class="box-title">
+                     <i class="fas fa-question-circle"></i>
+                     איך ליישם?
+                 </div>
+                 <div class="howto-content">
+                     <p>חשבו על ההיבט במחקר שבו אתם מתלבטים או רוצים לבחון אפשרויות נוספות. הגדירו בבירור מהן החלופות שאתם רוצים לקבל (למשל, "3 ניסוחים שונים לתקציר", "2 שיטות ויזואליזציה", "4 מודלים סטטיסטיים"). בקשו מה-AI לספק גם נימוקים או קריטריונים שיעזרו לכם לבחור בין החלופות.</p>
+                 </div>
+             </div>
+         </div>
+
+        <div class="principle-card">
+             <div class="card-header">
+                 <div class="principle-number">07</div>
+                 <h3 class="principle-title">
+                     <i class="fas fa-check-double"></i>
+                     אימות, בדיקה ובקשת הסברים/מקורות
+                 </h3>
+             </div>
+             <p class="principle-explanation">
+                 **קריטי במחקר!** לעולם אל תקבלו את תוצרי ה-AI כעובדה מוגמרת. בקשו ממנו באופן אקטיבי להסביר את ההיגיון מאחורי הקוד שכתב, לציין את המגבלות של ניתוח או טענה, ולנסות לספק מקורות או הפניות לדברים שהוא מציג. **חשוב ביותר: תמיד בדקו באופן עצמאי את הקוד, התוצאות, והמקורות שה-AI מספק.**
+             </p>
+             <div class="example-box">
+                 <div class="box-title">
+                     <i class="fas fa-lightbulb"></i>
+                     פרומפט לדוגמה
+                 </div>
+                 <div class="example-content">
+                     "לאחר הרצת קוד ה-Linear Mixed Model שהצעת:
+                     1. הסבר בפירוט את משמעות האפקטים הקבועים (Fixed Effects) והאפקטים הרנדומליים (Random Effects) בטבלת התוצאות.
+                     2. ציין מהן ההנחות המרכזיות של מודל זה וכיצד ניתן לבדוק אותן (אם לא נבדקו כבר בקוד).
+                     3. האם יש מגבלות או שיקולים חשובים בפירוש התוצאות האלו בהקשר של הנתונים שלי?
+                     4. לגבי הטענה שהעלית בתחילת דבריך ש-LMM עדיף על ANOVA במקרה זה, האם תוכל לספק הפניה למאמר או ספר מתודולוגי התומך בכך?"
+                 </div>
+                 <button class="copy-button" onclick="copyToClipboard(this)">
+                     <i class="fas fa-copy"></i>
+                     העתק דוגמה
+                 </button>
+             </div>
+             <div class="mistakes-box">
+                 <div class="box-title">
+                     <i class="fas fa-exclamation-triangle"></i>
+                     טעויות נפוצות
+                 </div>
+                 <ul class="mistakes-content">
+                     <li>קבלת קוד, תוצאות או טקסט ללא בקשת הסבר או אימות.</li>
+                     <li>הסתמכות עיוורת על מקורות שה-AI מספק (הוא עלול להמציא הפניות - "הזיות").</li>
+                     <li>אי-ביצוע בדיקה עצמאית של הקוד, הלוגיקה, והתוצאות.</li>
+                     <li>שימוש במידע עובדתי או מדעי שה-AI הציג ללא הצלבה עם מקורות מהימנים.</li>
+                 </ul>
+             </div>
+             <div class="howto-box">
+                 <div class="box-title">
+                     <i class="fas fa-question-circle"></i>
+                     איך ליישם?
+                 </div>
+                 <div class="howto-content">
+                     <p>הפכו את הבקשה להסבר ולמקורות לחלק אינטגרלי מהעבודה שלכם עם AI. שלבו בפרומפטים בקשות כמו: "הסבר את הקוד...", "ציין את המגבלות...", "ספק מקורות לטענה...". חשוב מכך: הקדישו זמן לבדיקה עצמאית של כל תוצר משמעותי שה-AI מספק, במיוחד קוד, תוצאות מספריות, והפניות ביבליוגרפיות.</p>
+                 </div>
+             </div>
+         </div>
+
+        <div class="principle-card">
+             <div class="card-header">
+                 <div class="principle-number">08</div>
+                 <h3 class="principle-title">
+                     <i class="fas fa-question-circle"></i>
+                     עידוד שאילת שאלות הבהרה
+                 </h3>
+             </div>
+             <p class="principle-explanation">
+                 במשימות מחקריות מורכבות או כאלה הדורשות הבנה מעמיקה של ההקשר, עודדו את ה-AI באופן מפורש לשאול אתכם שאלות אם משהו אינו ברור או אם חסר לו מידע כדי לבצע את המשימה כראוי. זה יכול למנוע תוצאות לא רלוונטיות ולחסוך זמן בהמשך.
+             </p>
+             <div class="example-box">
+                 <div class="box-title">
+                     <i class="fas fa-lightbulb"></i>
+                     פרומפט לדוגמה
+                 </div>
+                 <div class="example-content">
+                     "אני רוצה לתכנן ניתוח נתונים למחקר האורך שתיארתי קודם. לפני שתציע מודל סטטיסטי ספציפי ותכתוב קוד, אנא שאל אותי שאלות הבהרה לגבי:
+                     1. מבנה הנתונים המדויק (האם הם בפורמט רחב או ארוך?).
+                     2. מספר נקודות המדידה והמרווחים ביניהן.
+                     3. האם יש משתנים נוספים (covariates) שחשוב לשלוט עליהם?
+                     4. מהן ההשערות הספציפיות ביותר שאני רוצה לבדוק?
+                     אל תהסס לשאול כל שאלה נוספת שנדרשת להבנת המשימה."
+                 </div>
+                 <button class="copy-button" onclick="copyToClipboard(this)">
+                     <i class="fas fa-copy"></i>
+                     העתק דוגמה
+                 </button>
+             </div>
+             <div class="mistakes-box">
+                 <div class="box-title">
+                     <i class="fas fa-exclamation-triangle"></i>
+                     טעויות נפוצות
+                 </div>
+                 <ul class="mistakes-content">
+                     <li>מתן הנחיות מורכבות ללא פתח לשאלות הבהרה.</li>
+                     <li>הנחה שה-AI מבין את כל הניואנסים של המחקר שלכם ללא צורך בהבהרות.</li>
+                     <li>התעלמות משאלות שה-AI שואל (אם הוא שואל מיוזמתו).</li>
+                 </ul>
+             </div>
+             <div class="howto-box">
+                 <div class="box-title">
+                     <i class="fas fa-question-circle"></i>
+                     איך ליישם?
+                 </div>
+                 <div class="howto-content">
+                     <p>במיוחד בתחילת אינטראקציה על משימה חדשה ומורכבת, שלבו בפרומפט הנחיה מפורשת ל-AI לשאול שאלות: "לפני שתתחיל, אנא שאל אותי שאלות הבהרה אם משהו לא ברור או אם חסר לך מידע". היו מוכנים לענות על השאלות הללו כדי להבטיח שה-AI בכיוון הנכון.</p>
+                 </div>
+             </div>
+         </div>
+
+        <div class="principle-card">
+             <div class="card-header">
+                 <div class="principle-number">09</div>
+                 <h3 class="principle-title">
+                     <i class="fas fa-tools"></i>
+                     מיקוד ביישום מעשי של התוצר
+                 </h3>
+             </div>
+             <p class="principle-explanation">
+                 חשבו כיצד התוצר שה-AI מספק ישמש אתכם בפועל, ובקשו ממנו להכין אותו בפורמט או במבנה שיתאים ליישום זה. האם אתם צריכים טבלה לפרק התוצאות? נקודות למצגת? קוד שקל לשלב בסקריפט קיים? הנחו את ה-AI בהתאם.
+             </p>
+             <div class="example-box">
+                 <div class="box-title">
+                     <i class="fas fa-lightbulb"></i>
+                     פרומפט לדוגמה
+                 </div>
+                 <div class="example-content">
+                     "בהתבסס על תוצאות ניתוח ה-ANOVA הדו-כיווני שסיפקת קודם, אנא צור:
+                     1. טבלה בפורמט APA (גרסה 7) המסכמת את תוצאות ה-ANOVA (ערכי F, דרגות חופש, ערכי p, גודל אפקט eta-squared).
+                     2. פסקה קצרה המדווחת על הממצא העיקרי של האינטראקציה (אם הייתה מובהקת) בפורמט המתאים לפרק התוצאות במאמר.
+                     3. רשימת נקודות המסכמת את הממצאים העיקריים עבור שקף במצגת כנס."
+                 </div>
+                 <button class="copy-button" onclick="copyToClipboard(this)">
+                     <i class="fas fa-copy"></i>
+                     העתק דוגמה
+                 </button>
+             </div>
+             <div class="mistakes-box">
+                 <div class="box-title">
+                     <i class="fas fa-exclamation-triangle"></i>
+                     טעויות נפוצות
+                 </div>
+                 <ul class="mistakes-content">
+                     <li>קבלת תוצר גולמי (למשל, פלט סטטיסטי מהקונסולה) מבלי לבקש את עיבודו לפורמט שימושי.</li>
+                     <li>חוסר פירוט לגבי הפורמט הספציפי הנדרש (למשל, איזה סגנון ציטוט? איזה מבנה טבלה?).</li>
+                     <li>בקשת תוצר שאינו מתאים למטרה (למשל, סיכום טכני מדי למצגת המיועדת לקהל רחב).</li>
+                 </ul>
+             </div>
+             <div class="howto-box">
+                 <div class="box-title">
+                     <i class="fas fa-question-circle"></i>
+                     איך ליישם?
+                 </div>
+                 <div class="howto-content">
+                     <p>לפני שאתם מבקשים מה-AI לייצר תוכן, חשבו איפה ומתי תשתמשו בו (מאמר? מצגת? דוח פנימי? קוד?). נסחו את הבקשה כך שהתוצר יתאים ישירות לשימוש זה. אם יש הנחיות פורמט ספציפיות (כמו של כתב עת), ספקו אותן ל-AI.</p>
+                 </div>
+             </div>
+         </div>
+
+        <div class="principle-card">
+             <div class="card-header">
+                 <div class="principle-number">10</div>
+                 <h3 class="principle-title">
+                     <i class="fas fa-shield-alt"></i>
+                     הבהרות אתיות ושימוש אחראי (מחקר)
+                 </h3>
+             </div>
+             <p class="principle-explanation">
+                 שלבו שיקולים אתיים באופן מובנה בעבודה עם AI במחקר. הדגישו בפרומפטים (וגם בעבודתכם) את אנונימיות הנתונים, הימנעו משיתוף מידע רגיש, השתמשו ב-AI ככלי עזר ולא כתחליף לחשיבה ולכתיבה מקורית, בדקו היטב את התוצרים, והצהירו על השימוש ב-AI בהתאם למדיניות המקובלת.
+             </p>
+             <div class="example-box">
+                 <div class="box-title">
+                     <i class="fas fa-lightbulb"></i>
+                     פרומפט לדוגמה
+                 </div>
+                 <div class="example-content">
+                     "אני מבקש את עזרתך בניתוח תיאורי של מערך נתונים לצורך תכנון מחקר עתידי. הנתונים שאני מתאר כאן הם היפותטיים לחלוטין ואינם כוללים פרטים מזהים או מידע רגיש על משתתפים אמיתיים.
+                     המשימה: בהתבסס על תיאור המשתנים (גיל, מין, ציון בשאלון X), הצע דרכים לבדוק התפלגויות ולהציג סטטיסטיקה תיאורית בסיסית (ממוצעים, סטיות תקן, טווחי). אנא התמקד בהיבטים הטכניים של הניתוח והצגתו, והימנע מפרשנויות קליניות או אישיות."
+                 </div>
+                 <button class="copy-button" onclick="copyToClipboard(this)">
+                     <i class="fas fa-copy"></i>
+                     העתק דוגמה
+                 </button>
+             </div>
+             <div class="mistakes-box">
+                 <div class="box-title">
+                     <i class="fas fa-exclamation-triangle"></i>
+                     טעויות נפוצות
+                 </div>
+                 <ul class="mistakes-content">
+                     <li>הזנת נתונים מחקריים אמיתיים (גם אם אנונימיים לכאורה) למודלי AI ציבוריים ללא בדיקת מדיניות הפרטיות.</li>
+                     <li>העתקת פסקאות שלמות ש-AI כתב לתוך מאמר ללא עריכה משמעותית, אינטגרציה, והוספת קולכם המחקרי (סיכון לפלאגיאט או כתיבה לא אותנטית).</li>
+                     <li>שימוש ב-AI כ"קופסה שחורה" לניתוחים מבלי להבין את הקוד או את ההנחות מאחורי הניתוח.</li>
+                     <li>אי-הצהרה על שימוש משמעותי ב-AI בכתיבה או בניתוח, בניגוד להנחיות כתב העת או המוסד.</li>
+                 </ul>
+             </div>
+             <div class="howto-box">
+                 <div class="box-title">
+                     <i class="fas fa-question-circle"></i>
+                     איך ליישם?
+                 </div>
+                 <div class="howto-content">
+                     <p>היו מודעים לסיכונים. קראו את מדיניות הפרטיות של כלי ה-AI שבהם אתם משתמשים. העדיפו לעבוד עם נתונים היפותטיים או סינתטיים במידת האפשר בעת פיתוח קוד או פרומפטים. השתמשו ב-AI ככלי עזר לחשיבה, סיכום, ניסוח וקידוד – אך האחריות על התוכן המדעי, המקורי והאתי נשארת שלכם. תעדו את השימוש שלכם ב-AI והצהירו עליו בהתאם לדרישות.</p>
+                 </div>
+             </div>
+         </div>
+
+    </div> <script>
+        // Initialize GSAP ScrollTrigger
+        // Added check to avoid potential errors if GSAP is blocked or fails to load
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Animate cards on scroll
+            document.querySelectorAll('.principle-card').forEach((card) => {
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: "top bottom-=100", // Start animation when card is 100px from bottom
+                    toggleClass: {targets: card, className: "active"},
+                    once: true // Animate only once
+                });
+            });
+        } else {
+             console.warn("GSAP or ScrollTrigger not loaded. Animations disabled.");
+             // Make cards visible immediately if animations fail
+             document.querySelectorAll('.principle-card').forEach(card => {
+                 card.style.opacity = 1;
+                 card.style.transform = 'translateY(0)';
+             });
+        }
+
+
+        // Copy to clipboard functionality
+        function copyToClipboard(button) {
+            const card = button.closest('.principle-card');
+            if (!card) return; 
+            const contentElement = card.querySelector('.example-content');
+            if (!contentElement) return;
+            const content = contentElement.textContent.trim();
+            
+            navigator.clipboard.writeText(content).then(() => {
+                button.classList.add('copied');
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> הועתק!';
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = originalHTML;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                 const originalHTML = button.innerHTML;
+                 button.innerHTML = '<i class="fas fa-times"></i> שגיאה';
+                 setTimeout(() => { button.innerHTML = originalHTML; }, 2000);
+            });
+        }
+         // Add event listeners to all copy buttons after the DOM is loaded
+         document.addEventListener('DOMContentLoaded', () => {
+             document.querySelectorAll('.copy-button').forEach(button => {
+                 button.addEventListener('click', () => copyToClipboard(button));
+             });
+         });
+
+    </script>
+</body>
+</html>
